@@ -5,13 +5,13 @@
     <Authors>Peter Metz</Authors>
     <Description>Code based on example by Nicholas Blumhardt https://gist.github.com/nblumhardt</Description>
     <Copyright>Steelcase / nblumhardt / Serilog project team</Copyright>
-    <AssemblyVersion>1.0.3.0</AssemblyVersion>
-    <FileVersion>1.0.3.0</FileVersion>
-    <SignAssembly>false</SignAssembly>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <FileVersion>1.0.4.0</FileVersion>
+    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>SCSKeyPair.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Company>Steelcase</Company>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageReleaseNotes>initial release</PackageReleaseNotes>
@@ -21,6 +21,7 @@
     <PackageProjectUrl>https://github.com/pmetz-steelcase/Serilog.Enrichers.WithCaller</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl />
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -32,12 +33,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="license/MIT License.txt">
+    <None Include="icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="MIT License.md">
-      <Pack>False</Pack>
+    <None Include="license/MIT License.txt">
+      <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
     <None Update="license/MIT License.txt">
