@@ -31,6 +31,7 @@
 
         Log.Logger = logConfig.CreateLogger();
     }
+
     // create logger without any values from config
     private static void CreateMinimumLogger()
     {
