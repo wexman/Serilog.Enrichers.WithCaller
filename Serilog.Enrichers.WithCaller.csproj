@@ -4,11 +4,17 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Peter Metz</Authors>
     <Description>Code based on example by Nicholas Blumhardt https://gist.github.com/nblumhardt</Description>
-    <Copyright>Steelcase</Copyright>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.1</FileVersion>
-    <SignAssembly>true</SignAssembly>
+    <Copyright>Steelcase / nblumhardt / Serilog project team</Copyright>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>SCSKeyPair.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>1.0.1</Version>
+    <Company>Steelcase</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>initial release</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
