@@ -15,9 +15,12 @@
     <Company>Steelcase</Company>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageReleaseNotes>initial release</PackageReleaseNotes>
-    <PackageLicenseFile>MIT License.md</PackageLicenseFile>
+    <PackageLicenseFile>MIT License.txt</PackageLicenseFile>
     <RepositoryUrl>https://github.com/pmetz-steelcase/Serilog.Enrichers.WithCaller</RepositoryUrl>
     <RepositoryType>PackagePublish/2.0.0</RepositoryType>
+    <PackageProjectUrl>https://github.com/pmetz-steelcase/Serilog.Enrichers.WithCaller</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -29,11 +32,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="MIT License.md">
+    <None Include="icon.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="MIT License.md">
+    <None Include="license/MIT License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="license\MIT License.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Update="license\MIT License.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
