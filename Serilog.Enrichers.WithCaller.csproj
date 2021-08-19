@@ -32,6 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="license/MIT License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="MIT License.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
