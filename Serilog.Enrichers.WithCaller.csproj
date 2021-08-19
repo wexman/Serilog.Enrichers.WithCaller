@@ -32,22 +32,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="icon.png">
+    <None Include="MIT License.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="license/MIT License.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="license\MIT License.md">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-    <None Update="license\MIT License.txt">
+    <None Update="license/MIT License.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
