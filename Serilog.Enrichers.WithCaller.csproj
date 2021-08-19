@@ -5,17 +5,19 @@
     <Authors>Peter Metz</Authors>
     <Description>Code based on example by Nicholas Blumhardt https://gist.github.com/nblumhardt</Description>
     <Copyright>Steelcase / nblumhardt / Serilog project team</Copyright>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>SCSKeyPair.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Company>Steelcase</Company>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageReleaseNotes>initial release</PackageReleaseNotes>
     <PackageLicenseFile>MIT License.md</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/pmetz-steelcase/Serilog.Enrichers.WithCaller</RepositoryUrl>
+    <RepositoryType>PackagePublish/2.0.0</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

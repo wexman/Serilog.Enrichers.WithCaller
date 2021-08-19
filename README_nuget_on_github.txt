@@ -2,7 +2,7 @@
 
 Pushing to steelcase public nuget server:
 [nuget version]
-{PackageVersion}
+1.0.2
 
 [feed]
 from verion 5.0 the only feed is "GitHub pmetz-steelcase" (https://nuget.pkg.github.com/pmetz-steelcase/)
@@ -11,10 +11,11 @@ from verion 5.0 the only feed is "GitHub pmetz-steelcase" (https://nuget.pkg.git
 pack is done automatically on build
 
 [push]
-D:\Source\nuget.exe push -Source "GitHub pmetz-steelcase" -ApiKey AzureDevOps D:\Source\GitHub\pmetz-steelcase\Serilog.Enrichers.WithCaller\bin\Release\Serilog.Enrichers.WithCaller.{PackageVersion}.nupkg
+D:\Source\nuget push -Source "GitHub" -ApiKey {your api key} "D:\Source\GitHub\pmetz-steelcase\Serilog.Enrichers.WithCaller\bin\Release\Serilog.Enrichers.WithCaller.{verion}.nupkg" -SkipDuplicate
+
 
 [delete]
-D:\Source\nuget.exe delete -Source "GitHub pmetz-steelcase" -ApiKey AzureDevOps Serilog.Enrichers.WithCaller {PackageVersion}
+from github web
 
 [list all versions]
-D:\Source\nuget.exe list -AllVersions -Source "GitHub pmetz-steelcase" Serilog.Enrichers.WithCaller
+not supported by nuget.exe
