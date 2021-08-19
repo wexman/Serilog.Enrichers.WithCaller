@@ -37,7 +37,7 @@
       <PackagePath></PackagePath>
     </None>
     <None Include="MIT License.md">
-      <Pack>True</Pack>
+      <Pack>False</Pack>
       <PackagePath></PackagePath>
     </None>
     <None Update="license/MIT License.txt">
