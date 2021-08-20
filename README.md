@@ -1,0 +1,1 @@
+﻿** how to use, code example see unit test code **

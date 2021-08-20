@@ -3,15 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Peter Metz</Authors>
-    <Description>Code based on example by Nicholas Blumhardt https://gist.github.com/nblumhardt</Description>
-    <Copyright>Steelcase / nblumhardt / Serilog project team</Copyright>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
-    <FileVersion>1.0.4.0</FileVersion>
+    <Description>Log message Enrichter, adding caller and code line infos</Description>
+    <Copyright>Steelcase / nblumhardt / Serilog</Copyright>
+    <AssemblyVersion>1.0.5.0</AssemblyVersion>
+    <FileVersion>1.0.5.0</FileVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\..\SCSKeyPair.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <Company>Steelcase</Company>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageReleaseNotes>initial release</PackageReleaseNotes>
@@ -42,6 +42,10 @@
       <PackagePath></PackagePath>
     </None>
     <None Update="license/MIT License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="license\MIT License.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
