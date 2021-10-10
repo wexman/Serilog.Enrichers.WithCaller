@@ -7,6 +7,7 @@ using Serilog.Sinks.InMemory.Assertions;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -20,12 +21,18 @@ namespace Serilog.Enrichers.WithCaller.Tests
 
         public static InMemorySink InMemoryInstance => InMemorySink.Instance;
 
-        public static void CreateLogger()
+        public static ILogger CreateLogger(bool includeFileInfo)
         {
-            Log.Logger = new LoggerConfiguration()
-                            .Enrich.With(new CallerEnricher())
-                            .WriteTo.InMemory(outputTemplate: LogMessageTemplate)
-                            .CreateLogger();
+            return new LoggerConfiguration()
+                .Enrich.WithCaller(includeFileInfo)
+                .WriteTo.InMemory(outputTemplate: LogMessageTemplate)
+                .CreateLogger();
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            InMemoryInstance.Dispose();
         }
 
         //https://gist.github.com/nblumhardt/0e1e22f50fe79de60ad257f77653c813
@@ -33,13 +40,26 @@ namespace Serilog.Enrichers.WithCaller.Tests
         [TestMethod()]
         public void EnrichTest()
         {
-            CreateLogger();
-            Log.Error(new Exception(), "hello");
+            var logger = CreateLogger(includeFileInfo: false);
+            logger.Error(new Exception(), "hello");
             InMemoryInstance.Should()
                 .HaveMessage("hello")
                 .Appearing().Once()
                 .WithProperty("Caller")
                 .WithValue("Serilog.Enrichers.WithCaller.Tests.CallerEnricherTests.EnrichTest()");
+        }
+
+        [TestMethod()]
+        public void EnrichTestWithFileInfo()
+        {
+            var fileName = new StackFrame(fNeedFileInfo: true).GetFileName();
+            var logger = CreateLogger(includeFileInfo: true);
+            logger.Error(new Exception(), "hello");
+            InMemoryInstance.Should()
+                .HaveMessage("hello")
+                .Appearing().Once()
+                .WithProperty("Caller")
+                .WithValue($"Serilog.Enrichers.WithCaller.Tests.CallerEnricherTests.EnrichTestWithFileInfo() {fileName}:57");
         }
 
     }
