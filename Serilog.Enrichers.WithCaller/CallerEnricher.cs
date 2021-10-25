@@ -10,6 +10,17 @@ namespace Serilog.Enrichers.WithCaller
 {
     public class CallerEnricher : ILogEventEnricher
     {
+        private readonly bool _includeFileInfo;
+
+        public CallerEnricher() : this(includeFileInfo: false)
+        {
+        }
+
+        public CallerEnricher(bool includeFileInfo)
+        {
+            _includeFileInfo = includeFileInfo;
+        }
+
         public static int SkipFramesCount { get; set; } = 3;
         public static int MaxFrameCount { get; set; } = 128;
 
@@ -18,7 +29,7 @@ namespace Serilog.Enrichers.WithCaller
             int skipFrames = SkipFramesCount;
             while (skipFrames < MaxFrameCount)
             {
-                StackFrame stack = new StackFrame(skipFrames);
+                StackFrame stack = new StackFrame(skipFrames, _includeFileInfo);
                 if (!stack.HasMethod())
                 {
                     logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue("<unknown method>")));
@@ -28,8 +39,13 @@ namespace Serilog.Enrichers.WithCaller
                 MethodBase method = stack.GetMethod();
                 if (method.DeclaringType.Assembly != typeof(Log).Assembly)
                 {
-                    string caller = $"{method.DeclaringType.FullName}.{method.Name}({GetParameterFullNames(method.GetParameters())})";
-                    logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue(caller)));
+                    StringBuilder caller = new StringBuilder($"{method.DeclaringType.FullName}.{method.Name}({GetParameterFullNames(method.GetParameters())})");
+                    string fileName = stack.GetFileName();
+                    if (fileName != null)
+                    {
+                        caller.Append($" {fileName}:{stack.GetFileLineNumber()}");
+                    }
+                    logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue(caller.ToString())));
                     return;
                 }
 

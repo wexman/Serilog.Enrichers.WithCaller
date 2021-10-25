@@ -8,5 +8,10 @@ namespace Serilog.Enrichers.WithCaller
         {
             return enrichmentConfiguration.With<CallerEnricher>();
         }
+
+        public static LoggerConfiguration WithCaller(this LoggerEnrichmentConfiguration enrichmentConfiguration, bool includeFileInfo)
+        {
+            return enrichmentConfiguration.With(new CallerEnricher(includeFileInfo));
+        }
     }
 }
