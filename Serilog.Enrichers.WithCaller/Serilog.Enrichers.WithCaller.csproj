@@ -2,19 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>Peter Metz</Authors>
+    <Authors>richardburce, 0xced, pmetz-steelcase</Authors>
     <Description>Log message Enrichter, adding caller and code line infos</Description>
-    <Copyright>Steelcase / nblumhardt / Serilog</Copyright>
-    <AssemblyVersion>1.0.5.0</AssemblyVersion>
-    <FileVersion>1.0.5.0</FileVersion>
+    <Copyright>nblumhardt / steelcase / serilog authors</Copyright>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\..\..\SCSKeyPair.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.5</Version>
+    <Version>1.1.0</Version>
     <Company>Steelcase</Company>
     <PackageLicenseExpression></PackageLicenseExpression>
-    <PackageReleaseNotes>initial release</PackageReleaseNotes>
+    <PackageReleaseNotes>Add option to include file information in the caller property (#1)</PackageReleaseNotes>
     <PackageLicenseFile>MIT License.txt</PackageLicenseFile>
     <RepositoryUrl>https://github.com/pmetz-steelcase/Serilog.Enrichers.WithCaller</RepositoryUrl>
     <RepositoryType>PackagePublish/2.0.0</RepositoryType>

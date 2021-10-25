@@ -1,15 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
 
-using Serilog.Core;
-using Serilog.Enrichers.WithCaller;
-using Serilog.Sinks.InMemory;
-using Serilog.Sinks.InMemory.Assertions;
-
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using Serilog.Core;
+using Serilog.Sinks.InMemory;
+using Serilog.Sinks.InMemory.Assertions;
 
 namespace Serilog.Enrichers.WithCaller.Tests
 {
