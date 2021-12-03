@@ -1,13 +1,13 @@
 ﻿using System;
 
 using System.Diagnostics;
-using System.Linq;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Serilog.Core;
 using Serilog.Sinks.InMemory;
 using Serilog.Sinks.InMemory.Assertions;
+//using Serilog.Sinks.InMemory.Assertions;
 
 namespace Serilog.Enrichers.WithCaller.Tests
 {
@@ -23,7 +23,7 @@ namespace Serilog.Enrichers.WithCaller.Tests
         {
             return new LoggerConfiguration()
                 .Enrich.WithCaller(includeFileInfo)
-                .WriteTo.InMemory(outputTemplate: LogMessageTemplate)
+                //.WriteTo.InMemory(outputTemplate: LogMessageTemplate)
                 .CreateLogger();
         }
 
