@@ -21,6 +21,11 @@ namespace Serilog.Enrichers.WithCaller
             _includeFileInfo = includeFileInfo;
         }
 
+        public CallerEnricher(bool includeFileInfo, int maxDepth)
+        {
+            _includeFileInfo = includeFileInfo;
+        }
+
         public static int SkipFramesCount { get; set; } = 3;
         public static int MaxFrameCount { get; set; } = 128;
 
