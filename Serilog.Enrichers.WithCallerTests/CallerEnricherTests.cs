@@ -18,10 +18,10 @@ namespace Serilog.Enrichers.WithCaller.Tests
 
         public static InMemorySink InMemoryInstance => InMemorySink.Instance;
 
-        public static ILogger CreateLogger(bool includeFileInfo)
+        public static ILogger CreateLogger(bool includeFileInfo = false, int maxDepth = 1)
         {
             return new LoggerConfiguration()
-                .Enrich.WithCaller(includeFileInfo)
+                .Enrich.WithCaller(includeFileInfo, maxDepth)
                 .WriteTo.InMemory(outputTemplate: LogMessageTemplate)
                 .CreateLogger();
         }
@@ -56,7 +56,19 @@ namespace Serilog.Enrichers.WithCaller.Tests
                 .HaveMessage("hello")
                 .Appearing().Once()
                 .WithProperty("Caller")
-                .WithValue($"Serilog.Enrichers.WithCaller.Tests.CallerEnricherTests.EnrichTestWithFileInfo() {fileName}:57");
+                .WithValue($"Serilog.Enrichers.WithCaller.Tests.CallerEnricherTests.EnrichTestWithFileInfo() {fileName}:55");
+        }
+
+        [TestMethod()]
+        public void MaxDepthTest()
+        {
+            var logger = CreateLogger(includeFileInfo: false, maxDepth: 2);
+            logger.Error(new Exception(), "hello");
+            InMemoryInstance.Should()
+                .HaveMessage("hello")
+                .Appearing().Once()
+                .WithProperty("Caller")
+                .WithValue("Serilog.Enrichers.WithCaller.Tests.CallerEnricherTests.MaxDepthTest() at System.RuntimeMethodHandle.InvokeMethod(System.Object, System.Object[], System.Signature, System.Boolean, System.Boolean)");
         }
     }
 }

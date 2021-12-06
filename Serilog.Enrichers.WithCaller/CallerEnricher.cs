@@ -11,14 +11,12 @@ namespace Serilog.Enrichers.WithCaller
     public class CallerEnricher : ILogEventEnricher
     {
         private readonly bool _includeFileInfo;
+        private readonly int _maxDepth;
 
-        public CallerEnricher() : this(includeFileInfo: false)
-        {
-        }
-
-        public CallerEnricher(bool includeFileInfo)
+        public CallerEnricher(bool includeFileInfo = false, int maxDepth = 1)
         {
             _includeFileInfo = includeFileInfo;
+            _maxDepth = Math.Max(1, maxDepth);
         }
 
         public CallerEnricher(bool includeFileInfo, int maxDepth)
@@ -31,6 +29,9 @@ namespace Serilog.Enrichers.WithCaller
 
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
+            int foundFrames = 0;
+            StringBuilder caller = new StringBuilder();
+
             int skipFrames = SkipFramesCount;
             while (skipFrames < MaxFrameCount)
             {
@@ -44,14 +45,20 @@ namespace Serilog.Enrichers.WithCaller
                 MethodBase method = stack.GetMethod();
                 if (method.DeclaringType.Assembly != typeof(Log).Assembly)
                 {
-                    StringBuilder caller = new StringBuilder($"{method.DeclaringType.FullName}.{method.Name}({GetParameterFullNames(method.GetParameters())})");
-                    string fileName = stack.GetFileName();
-                    if (fileName != null)
+                    if (foundFrames > 0)
                     {
+                        caller.Append(" at ");
+                    }
+                    caller.Append($"{method.DeclaringType.FullName}.{method.Name}({GetParameterFullNames(method.GetParameters())})");
+                    if (stack.GetFileName() is string fileName)
+                    { 
                         caller.Append($" {fileName}:{stack.GetFileLineNumber()}");
                     }
-                    logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue(caller.ToString())));
-                    return;
+                    if (++foundFrames >= _maxDepth)
+                    {
+                        logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue(caller.ToString())));
+                        return;
+                    }
                 }
 
                 skipFrames++;
