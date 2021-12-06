@@ -13,15 +13,10 @@ namespace Serilog.Enrichers.WithCaller
         private readonly bool _includeFileInfo;
         private readonly int _maxDepth;
 
-        public CallerEnricher(bool includeFileInfo = false, int maxDepth = 1)
+        public CallerEnricher(bool? includeFileInfo, int maxDepth)
         {
-            _includeFileInfo = includeFileInfo;
+            _includeFileInfo = includeFileInfo ?? false;
             _maxDepth = Math.Max(1, maxDepth);
-        }
-
-        public CallerEnricher(bool includeFileInfo, int maxDepth)
-        {
-            _includeFileInfo = includeFileInfo;
         }
 
         public static int SkipFramesCount { get; set; } = 3;
@@ -43,25 +38,37 @@ namespace Serilog.Enrichers.WithCaller
                 }
 
                 MethodBase method = stack.GetMethod();
-                if (method.DeclaringType.Assembly != typeof(Log).Assembly)
+                if (method.DeclaringType.Assembly == typeof(Log).Assembly)
                 {
-                    if (foundFrames > 0)
-                    {
-                        caller.Append(" at ");
-                    }
-                    caller.Append($"{method.DeclaringType.FullName}.{method.Name}({GetParameterFullNames(method.GetParameters())})");
-                    if (stack.GetFileName() is string fileName)
-                    { 
-                        caller.Append($" {fileName}:{stack.GetFileLineNumber()}");
-                    }
-                    if (++foundFrames >= _maxDepth)
-                    {
-                        logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue(caller.ToString())));
-                        return;
-                    }
+                    skipFrames++;
+                    continue;
+                }
+
+
+                //else if (method.DeclaringType.Assembly != typeof(Log).Assembly)
+
+                if (foundFrames > 0)
+                {
+                    caller.Append(" at ");
+                }
+
+                caller.Append($"{method.DeclaringType.FullName}.{method.Name}({GetParameterFullNames(method.GetParameters())})");
+
+                if (stack.GetFileName() is string fileName)
+                {
+                    caller.Append($" {fileName}:{stack.GetFileLineNumber()}");
+                }
+
+                foundFrames++;
+
+                if (_maxDepth <= foundFrames)
+                {
+                    logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue(caller.ToString())));
+                    return;
                 }
 
                 skipFrames++;
+
             }
         }
 

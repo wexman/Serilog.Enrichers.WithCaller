@@ -37,7 +37,11 @@ namespace Serilog.Enrichers.WithCaller.Tests
         [TestMethod()]
         public void EnrichTest()
         {
-            var logger = CreateLogger(includeFileInfo: false);
+            var logger = new LoggerConfiguration()
+                        .Enrich.WithCaller()
+                        .WriteTo.InMemory(outputTemplate: LogMessageTemplate)
+                        .CreateLogger();
+
             logger.Error(new Exception(), "hello");
             InMemoryInstance.Should()
                 .HaveMessage("hello")
@@ -50,25 +54,35 @@ namespace Serilog.Enrichers.WithCaller.Tests
         public void EnrichTestWithFileInfo()
         {
             var fileName = new StackFrame(fNeedFileInfo: true).GetFileName();
-            var logger = CreateLogger(includeFileInfo: true);
-            logger.Error(new Exception(), "hello");
+
+            var logger = new LoggerConfiguration()
+                        .Enrich.WithCaller(true, 1)
+                        .WriteTo.InMemory(outputTemplate: LogMessageTemplate)
+                        .CreateLogger();
+
+            logger.Error(new Exception(), "hello"); // line value "nn" is the suffix in WithValue check below
             InMemoryInstance.Should()
                 .HaveMessage("hello")
                 .Appearing().Once()
                 .WithProperty("Caller")
-                .WithValue($"Serilog.Enrichers.WithCaller.Tests.CallerEnricherTests.EnrichTestWithFileInfo() {fileName}:55");
+                .WithValue($"Serilog.Enrichers.WithCaller.Tests.CallerEnricherTests.EnrichTestWithFileInfo() {fileName}:63");
         }
 
         [TestMethod()]
         public void MaxDepthTest()
         {
-            var logger = CreateLogger(includeFileInfo: false, maxDepth: 2);
+            var logger = new LoggerConfiguration()
+                        .Enrich.WithCaller(includeFileInfo: false, maxDepth: 2)
+                        .WriteTo.InMemory(outputTemplate: LogMessageTemplate)
+                        .CreateLogger();
+
             logger.Error(new Exception(), "hello");
             InMemoryInstance.Should()
                 .HaveMessage("hello")
                 .Appearing().Once()
                 .WithProperty("Caller")
                 .WithValue("Serilog.Enrichers.WithCaller.Tests.CallerEnricherTests.MaxDepthTest() at System.RuntimeMethodHandle.InvokeMethod(System.Object, System.Object[], System.Signature, System.Boolean, System.Boolean)");
+            //"Serilog.Enrichers.WithCaller.Tests.CallerEnricherTests.MaxDepthTest()"
         }
     }
 }
