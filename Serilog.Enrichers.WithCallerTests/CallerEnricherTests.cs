@@ -13,7 +13,7 @@ namespace Serilog.Enrichers.WithCaller.Tests
     [TestClass()]
     public class CallerEnricherTests
     {
-        public static string LogMessageTemplate { get; } = "[{Timestamp:HH:mm:ss} {Level:u3}] {Message} (at {Caller}){NewLine}{Exception}";
+        public static string OutputTemplate { get; } = "[{Timestamp:HH:mm:ss} {Level:u3}] {Message} (at {Caller}){NewLine}{Exception}";
         public static LoggingLevelSwitch LoggingLevelSwitch { get; } = new LoggingLevelSwitch(Events.LogEventLevel.Verbose);
 
         public static InMemorySink InMemoryInstance => InMemorySink.Instance;
@@ -22,7 +22,7 @@ namespace Serilog.Enrichers.WithCaller.Tests
         {
             return new LoggerConfiguration()
                 .Enrich.WithCaller(includeFileInfo, maxDepth)
-                .WriteTo.InMemory(outputTemplate: LogMessageTemplate)
+                .WriteTo.InMemory(outputTemplate: OutputTemplate)
                 .CreateLogger();
         }
 
@@ -39,7 +39,7 @@ namespace Serilog.Enrichers.WithCaller.Tests
         {
             var logger = new LoggerConfiguration()
                         .Enrich.WithCaller()
-                        .WriteTo.InMemory(outputTemplate: LogMessageTemplate)
+                        .WriteTo.InMemory(outputTemplate: OutputTemplate)
                         .CreateLogger();
 
             logger.Error(new Exception(), "hello");
@@ -57,7 +57,7 @@ namespace Serilog.Enrichers.WithCaller.Tests
 
             var logger = new LoggerConfiguration()
                         .Enrich.WithCaller(true, 1)
-                        .WriteTo.InMemory(outputTemplate: LogMessageTemplate)
+                        .WriteTo.InMemory(outputTemplate: OutputTemplate)
                         .CreateLogger();
 
             logger.Error(new Exception(), "hello"); // line value "nn" is the suffix in WithValue check below
@@ -73,7 +73,7 @@ namespace Serilog.Enrichers.WithCaller.Tests
         {
             var logger = new LoggerConfiguration()
                         .Enrich.WithCaller(includeFileInfo: false, maxDepth: 2)
-                        .WriteTo.InMemory(outputTemplate: LogMessageTemplate)
+                        .WriteTo.InMemory(outputTemplate: OutputTemplate)
                         .CreateLogger();
 
             logger.Error(new Exception(), "hello");
