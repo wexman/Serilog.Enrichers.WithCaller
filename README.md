@@ -4,4 +4,4 @@
 
 Performance of this approach is low due to Reflection and Diagnostic. However, it's helpful if you need the method Parameters and Values in your log output.
 
-For better performance use the serilog template configuration, example OutputTemplate: [{Timestamp:HH:mm:ss} {Level:u3}] {Message} (at {Caller}){NewLine}{Exception}
+Example OutputTemplate: [{Timestamp:HH:mm:ss} {Level:u3}] {Message} (at {Caller}){NewLine}{Exception}
