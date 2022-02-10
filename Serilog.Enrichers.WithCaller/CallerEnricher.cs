@@ -69,7 +69,7 @@ namespace Serilog.Enrichers.WithCaller
 
                 var method = frame.MethodInfo;
 
-                if (_filter(method.MethodBase))
+                if (_filter(method.MethodBase ?? method.SubMethodBase))
                 {
                     continue;
                 }
